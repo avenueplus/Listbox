@@ -1,6 +1,6 @@
 ﻿namespace PkLogAnalyzer
 {
-    partial class MainFormViews
+    partial class display
     {
         /// <summary>
         /// 必要なデザイナ変数です。

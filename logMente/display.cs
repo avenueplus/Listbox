@@ -10,11 +10,11 @@ using System.Diagnostics;
 
 namespace PkLogAnalyzer
 {
-    public partial class MainFormViews : Form
+    public partial class display : Form
     {
         List<string> dataList = new List<string>();
         
-        public MainFormViews()
+        public display()
         {
             InitializeComponent();
 

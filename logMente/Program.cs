@@ -14,7 +14,7 @@ namespace PkLogAnalyzer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainFormViews());
+            Application.Run(new display());
         }
     }
 }
