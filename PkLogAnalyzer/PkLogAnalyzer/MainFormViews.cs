@@ -12,13 +12,15 @@ namespace PkLogAnalyzer
 {
     public partial class MainFormViews : Form
     {
+        List<string> dataList = new List<string>();
+        
         public MainFormViews()
         {
             InitializeComponent();
 
             Encoding enc = Encoding.GetEncoding("shift_jis");
             string _buffer = null;
-            string filePath = @"C:\zabbix\log\zabbix_agentd_sjis.log";
+            string filePath = @"C:\zabbix\log\zabbix_agentd_sjis_1.log";
             Stopwatch sw = new Stopwatch();
 
             sw.Start();
@@ -26,15 +28,18 @@ namespace PkLogAnalyzer
             {
                 using (TextReader tr = new StreamReader(fs, enc))
                 {
-                    _buffer = tr.ReadToEnd();
+                    //_buffer = tr.ReadToEnd();
+                    //ストリームの末端まで繰り返す
+                    while (tr.Peek() > -1)
+                    {
+                        dataList.Add(tr.ReadLine());
+                    }
                 }
             }
 
-
             sw.Stop(); Debug.WriteLine("メモリリード-" + sw.Elapsed);
-            sw.Reset();
+            sw.Reset(); sw.Start();
 
-            sw.Start();
             /*using (StringReader rs = new System.IO.StringReader(_buffer))
             {
                 //ストリームの末端まで繰り返す
@@ -43,57 +48,54 @@ namespace PkLogAnalyzer
                     c1FlexGrid1.AddItem(rs.ReadLine());
                 }
             }*/
-            string [] _buffers = _buffer.Split('\n');
+            //string[] _buffers = _buffer.Split('\n');
 
-            sw.Stop();Debug.WriteLine("行分割-" + sw.Elapsed);
-
+            sw.Stop(); Debug.WriteLine("行分割-" + sw.Elapsed);
             sw.Reset(); sw.Start();
-            ListViewItem items = new ListViewItem(_buffers);
-            c1FlexGrid1.Items.Add(items);
 
-            //c1FlexGrid1.FormattingEnabled = true;
-            //c1FlexGrid1.HorizontalScrollbar = true;
-            //c1FlexGrid1.MultiColumn = true;
-            //c1FlexGrid1.ScrollAlwaysVisible = true;
-            //c1FlexGrid1.Size = new System.Drawing.Size(120, 95);
-            //c1FlexGrid1.TabIndex = 0;
-            //c1FlexGrid1.ColumnWidth = 85;
-            //for (int i = 0; i < 500; i++)
-            //{
-            //    c1FlexGrid1.Items.Add(i.ToString());
-            //}
+            //dataList.AddRange(_buffers);
 
-            sw.Stop();Debug.WriteLine("リストセット（レンジ）-" + sw.Elapsed);
-            
+            sw.Stop(); Debug.WriteLine("データセット-" + sw.Elapsed);
+            sw.Reset(); sw.Start();
 
-            //c1FlexGrid1.Items.Clear();
+            //バーチャルモードを有効に変更
+            ListView1.VirtualMode = true;
+            //バーチャルリストの行数
+            ListView1.VirtualListSize = dataList.Count;
 
-            /*sw.Reset(); sw.Start();
-            for (int ii = 1; ii < c1FlexGrid1.Rows.Count; ii++)
-            {
-                c1FlexGrid1[ii, 0] = ii;
-            }
-            sw.Stop(); Debug.WriteLine("行番号セット-" + sw.Elapsed);*/
+            //ListViewItem items = new ListViewItem(_buffers);
+            //c1FlexGrid1.Items.Add(items);
 
+            sw.Stop();Debug.WriteLine("バーチャルセット-" + sw.Elapsed);
             Debug.WriteLine("ここまで-" + sw.ElapsedTicks);
+        }
 
-            /*c1FlexGrid1.SaveGrid(@"C:\zabbix\log\zabbix_agentd_sjis_1.log", 
-                C1.Win.C1FlexGrid.FileFormatEnum.TextCustom, 
-                C1.Win.C1FlexGrid.FileFlags.None,
-                enc);*/
+        private void c1FlexGrid1_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            //e.Item = new ListViewItem(e.ItemIndex + 1);
 
-            /*using (StreamWriter sw = new StreamWriter(@"C:\zabbix\log\zabbix_agentd_sjis_1.log", true,  enc))
+            if (e.ItemIndex < dataList.Count)
             {
-                for (int jj = 1; jj < 5000; jj++)
+                if (e.Item == null)
                 {
-                    for (int ii = 1; ii < c1FlexGrid1.Rows.Count; ii++)
-                    {
-                        sw.WriteLine(c1FlexGrid1[ii, 1]);
-                    }
+                    //e.Item = new ListViewItem();
+                    e.Item = new ListViewItem();
                 }
-            }*/
 
+                //e.Item.ImageIndex = dataList[e.ItemIndex].ImageIndex;
+                //e.Item.Text = string.Format("{0:s}", dataList[e.ItemIndex].Name);
 
+                //e.Item.ImageIndex = e.ItemIndex;
+                e.Item.Text = dataList[e.ItemIndex];
+            }
+        }
+
+        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListView1.SelectedIndices.Count > 0)
+            {
+                label1.Text = "" + ListView1.SelectedIndices[0];
+            }
         }
     }
 }

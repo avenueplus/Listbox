@@ -48,7 +48,17 @@ namespace PkLogAnalyzer
             sw.Stop();Debug.WriteLine("çsï™äÑ-" + sw.Elapsed);
 
             sw.Reset(); sw.Start();
+
+            c1FlexGrid1.BeginUpdate();
+
             c1FlexGrid1.Items.AddRange(_buffers);
+            /*for (int ii = 0; ii < _buffers.Length; ii++)
+            {
+                c1FlexGrid1.Items.Add(_buffers[ii]);
+                Application.DoEvents();
+            }*/
+
+            c1FlexGrid1.EndUpdate();
 
             //c1FlexGrid1.FormattingEnabled = true;
             //c1FlexGrid1.HorizontalScrollbar = true;
