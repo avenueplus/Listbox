@@ -1,4 +1,4 @@
-﻿namespace PkLogAnalyzer
+﻿namespace logMente
 {
     partial class display
     {

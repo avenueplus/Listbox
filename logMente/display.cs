@@ -8,20 +8,125 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
-namespace PkLogAnalyzer
+namespace logMente
 {
     public partial class display : Form
     {
         List<string> dataList = new List<string>();
-        
+
+        List<string[]> attrInfo = new List<string[]>();
+
+        private void Console_WriteLine(string caption, string[] param)
+        {
+            for (int ii = 0; ii < param.Length; ii++)
+            {
+                Console.WriteLine(caption + param[ii]);
+            }
+
+        }
+
+        private string GetProjectFolder(string initialFolder)
+        {
+            string projectFolder = Path.GetFullPath(initialFolder);
+            string rootDir = Directory.GetDirectoryRoot(projectFolder);
+
+            while (!projectFolder.Equals(rootDir))
+            {
+                projectFolder = Directory.GetParent(projectFolder).FullName;
+                string folderName = Path.GetFileName(projectFolder);
+
+                if (folderName.Equals(Application.ProductName))
+                {
+                    break;
+                }
+            }
+            if (projectFolder.Equals(rootDir))
+            {
+                projectFolder = initialFolder;
+            }
+
+            return projectFolder;
+        }
+
         public display()
         {
             InitializeComponent();
 
+            this.Hide();
+            // ファイルリストxml生成時に抽出する場合
+            // 指定なし（項目なし）が無視（スルー）
+            attrInfo.Add(new string[] { FileAttributes.ReadOnly.ToString(), "true" });  // checked は 取り込む
+            attrInfo.Add(new string[] { FileAttributes.ReadOnly.ToString(), "false" }); // unchecked は 除外
+
+            //
+            // でも、xpathのクエリーにする（xmlには全フォルダ・ファイルを階層で格納する。）
+            //
+
+            // プロジェクトネームは、AssemblyInfo.cs のものを使っている。
+            Console.WriteLine("App ProductName          :" + Application.ProductName);
+            Console.WriteLine("App ExecutablePath       :" + Application.ExecutablePath);
+            Console.WriteLine("App StartupPath          :" + Application.StartupPath);
+
+            Console.WriteLine("Dir GetCurrentDirectory  :" + Directory.GetCurrentDirectory());
+            Console.WriteLine("Dir GetDirectoryRoot     :" + Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()));
+            Console_WriteLine("Dir GetLogicalDrives     :" , Directory.GetLogicalDrives());
+            Console.WriteLine("Dir GetParent            :" + Directory.GetParent(Directory.GetCurrentDirectory()).FullName);
+
+            Console.WriteLine("App CommonAppDataPath    :" + Application.CommonAppDataPath);
+            Console.WriteLine("App LocalUserAppDataPath :" + Application.LocalUserAppDataPath);
+            Console.WriteLine("App UserAppDataPath      :" + Application.UserAppDataPath);
+
+            Console.WriteLine();
+            Console.WriteLine("Dir GetParent GetParent  :" + 
+                Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName);
+            Console_WriteLine("Dir GetFileSystemEntries :", Directory.GetFileSystemEntries(
+                Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName, "*")); // , "*"
+
+            Console.WriteLine();
+            Console.WriteLine(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo");
+            Console.WriteLine("File Path.GetFileName         :" + Path.GetFileName(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo"));
+            Console.WriteLine("File Path.GetExtension        :" + Path.GetExtension(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo"));
+            Console.WriteLine("File Path.GetDirectoryName    :" + Path.GetDirectoryName(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo"));
+            Console.WriteLine("File Path.GetFileNameWithou   :" + Path.GetFileNameWithoutExtension(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo"));
+            Console.WriteLine("File Path.GetFullPath         :" + Path.GetFullPath(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo"));
+            Console.WriteLine("File Path.GetPathRoot         :" + Path.GetPathRoot(@"C:\Users\avenue\Documents\GitHub\Listbox\logMente\logMente.suo"));
+            Console.WriteLine("     Path.GetTempPath         :" + Path.GetTempPath());
+            Console.WriteLine("     Path.GetRandomFileName   :" + Path.GetRandomFileName());
+            Console.WriteLine("     Path.GetTempFileName     :" + Path.GetTempFileName());
+
+            Console.WriteLine();
+            Console.WriteLine(Application.StartupPath);
+            Console.WriteLine("Dir  Path.GetFileName         :" + Path.GetFileName(Application.StartupPath));
+            Console.WriteLine("Dir  Path.GetExtension        :" + Path.GetExtension(Application.StartupPath));
+            Console.WriteLine("Dir  Path.GetDirectoryName    :" + Path.GetDirectoryName(Application.StartupPath));
+            Console.WriteLine("Dir  Path.GetFileNameWithou   :" + Path.GetFileNameWithoutExtension(Application.StartupPath));
+            Console.WriteLine("Dir  Path.GetFullPath         :" + Path.GetFullPath(Application.StartupPath));
+            Console.WriteLine("Dir  Path.GetPathRoot         :" + Path.GetPathRoot(Application.StartupPath));
+
+
+            Console.WriteLine();
+            Console.WriteLine("Loc GetProjectFolder      :" + GetProjectFolder(Application.StartupPath));
+            Console.WriteLine("Loc GetProjectFolder      :" + GetProjectFolder(@"C:\"));
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+#if LISTVIEW_TEST            
             Encoding enc = Encoding.GetEncoding("shift_jis");
-            string _buffer = null;
             string filePath = @"C:\zabbix\log\zabbix_agentd_sjis_1.log";
             Stopwatch sw = new Stopwatch();
+
+            //string _buffer = null;
 
             sw.Start();
             using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -68,6 +173,8 @@ namespace PkLogAnalyzer
 
             sw.Stop();Debug.WriteLine("バーチャルセット-" + sw.Elapsed);
             Debug.WriteLine("ここまで-" + sw.ElapsedTicks);
+
+#endif
         }
 
         private void c1FlexGrid1_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)

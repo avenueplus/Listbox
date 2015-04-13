@@ -7,9 +7,9 @@
     <ProjectGuid>{95D8B58C-46B1-4BF0-A049-A9C15D60DBAF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PkLogAnalyzer</RootNamespace>
-    <AssemblyName>PkLogAnalyzer</AssemblyName>
-    <StartupObject>PkLogAnalyzer.Program</StartupObject>
+    <RootNamespace>logMente</RootNamespace>
+    <AssemblyName>logMente</AssemblyName>
+    <StartupObject>logMente.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PkLogAnalyzer.Properties {
+namespace logMente.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
