@@ -1,0 +1,18 @@
+        protected string Name {set { this._name = value; }get { return this._name; }}
+        protected string Value { set { this._value = value; } get { return this._value; } }
+        protected string Checked { set { this._checked = value; } get { return this._checked; } }
+        protected string Index { set { this._index = value; } get { return this._index; } }
+        protected string Name { set { this._name = value; } get { return this._name; } }
+
+private _name;
+private _value;
+private _checked;
+private _index;
+private _name;
+
+
+
+
+
+
+

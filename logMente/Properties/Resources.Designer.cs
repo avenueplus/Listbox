@@ -59,5 +59,51 @@ namespace logMente.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   &lt;searchConditions&gt;
+        ///  &lt;searchCondition&gt;
+        ///    &lt;checked&gt;True&lt;/checked&gt;
+        ///    &lt;name&gt;テスト条件True&lt;/name&gt;
+        ///    &lt;value&gt;TEST CONDITION True&lt;/value&gt;
+        ///    &lt;index&gt;12&lt;/index&gt;
+        ///  &lt;/searchCondition&gt;
+        ///
+        ///  &lt;searchCondition&gt;
+        ///    &lt;checked&gt;3&lt;/checked&gt;
+        ///    &lt;name&gt;テスト条件3&lt;/name&gt;
+        ///    &lt;value&gt;TEST CONDITION 3&lt;/value&gt;
+        ///    &lt;index&gt;2&lt;/index&gt;
+        ///  &lt;/searchCondition&gt;
+        ///
+        ///  &lt;searchCondition&gt;
+        ///    &lt;checked&gt;10&lt;/checked&gt;
+        ///    &lt;name&gt;テスト条件10&lt;/name&gt;
+        ///    &lt;value&gt;TEST CONDITION 10&lt;/value&gt;
+        ///    &lt;index&gt;5&lt;/index&gt;
+        ///  &lt;/searchCondition&gt;
+        ///  &lt;searchConditi [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string saveCondition {
+            get {
+                return ResourceManager.GetString("saveCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   &lt;xsl:stylesheet xmlns:xsl=”http://www.w3.org/1999/XSL/Transform” version=”1.0″&gt;
+        ///&lt;xsl:template match=”NewDataSet”&gt;
+        ///&lt;xsl:apply-templates select=”Table” /&gt;
+        ///&lt;/xsl:template&gt;
+        ///&lt;xsl:template match=”Table”&gt;
+        ///&lt;xsl:value-of select=”Column_A” /&gt;,&lt;xsl:value-of select=”Column_B” /&gt;,&lt;xsl:value-of select=”Column_C” /&gt;
+        ///&lt;/xsl:template&gt;
+        ///&lt;/xsl:stylesheet&gt; に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string transformXslt {
+            get {
+                return ResourceManager.GetString("transformXslt", resourceCulture);
+            }
+        }
     }
 }

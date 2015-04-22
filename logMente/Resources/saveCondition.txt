@@ -1,0 +1,46 @@
+<searchConditions>
+  <searchCondition>
+    <checked>True</checked>
+    <name>テスト条件True</name>
+    <value>TEST CONDITION True</value>
+    <index>12</index>
+  </searchCondition>
+
+  <searchCondition>
+    <checked>3</checked>
+    <name>テスト条件3</name>
+    <value>TEST CONDITION 3</value>
+    <index>2</index>
+  </searchCondition>
+
+  <searchCondition>
+    <checked>10</checked>
+    <name>テスト条件10</name>
+    <value>TEST CONDITION 10</value>
+    <index>5</index>
+  </searchCondition>
+  <searchCondition>
+    <checked>2</checked>
+    <name>テスト条件2</name>
+    <value>TEST CONDITION 2</value>
+    <index>6</index>
+  </searchCondition>
+  <searchCondition>
+    <checked>False</checked>
+    <name>テスト条件False</name>
+    <value>TEST CONDITION False</value>
+    <index>3</index>
+  </searchCondition>
+  <searchCondition>
+    <checked>0</checked>
+    <name>テスト条件0</name>
+    <value>TEST CONDITION 0</value>
+    <index>1</index>
+  </searchCondition>
+  <searchCondition>
+    <checked>1</checked>
+    <name>テスト条件1</name>
+    <value>TEST CONDITION 1</value>
+    <index>6</index>
+  </searchCondition>
+</searchConditions>
